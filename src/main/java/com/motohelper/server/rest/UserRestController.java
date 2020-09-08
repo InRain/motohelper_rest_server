@@ -1,5 +1,6 @@
 package com.motohelper.server.rest;
 
+import com.motohelper.server.dto.UserDto;
 import com.motohelper.server.model.User;
 import com.motohelper.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserRestController {
     private UserService userService;
 
     @RequestMapping(value = "{id}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUser(@PathVariable("id") Long userId){
+    public ResponseEntity<UserDto> getUser(@PathVariable("id") Long userId){
         if (userId == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -29,7 +30,8 @@ public class UserRestController {
         if (user == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        UserDto userDto =  UserDto.fromUser(user);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,8 +40,8 @@ public class UserRestController {
         if(user == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        userService.save(user);
-        return new ResponseEntity<>(user,headers, HttpStatus.CREATED);
+        userService.register(user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
