@@ -38,7 +38,8 @@ public class UserServiceImplementation implements UserService{
         List<Role> roleList = new ArrayList<>();
         roleList.add(userRole);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         user.setRoles(roleList);
         user.setStatus(Status.ACTIVE);
 

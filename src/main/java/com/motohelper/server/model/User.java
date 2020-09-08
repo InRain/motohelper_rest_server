@@ -11,16 +11,16 @@ import java.util.List;
 @Table(name = "users")
 public class User extends BaseEntity {
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String userName;
 
     @Column(name = "full_name")
     private String firstName;
 
-    @Column(name = "phone")
+    @Column(name = "phone",unique = true)
     private String phone;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "birthdate")
@@ -107,7 +107,7 @@ public class User extends BaseEntity {
     }
 
     public void setStatus(Status status) {
-        this.setStatus(status);
+        super.setStatus(status);
     }
 
     public Status getStatus() {
