@@ -21,6 +21,7 @@
         <lombok-version>1.18.12</lombok-version>
         <hibernate-entitymanager.version>5.4.16.Final</hibernate-entitymanager.version>
         <jsonwebtoken.version>0.9.1</jsonwebtoken.version>
+        <junit-jupiter.version>5.7.0-M1</junit-jupiter.version>
     </properties>
 
     <dependencies>
@@ -45,6 +46,23 @@
             <artifactId>spring-boot-starter-security</artifactId>
             <version>${spring-version}</version>
         </dependency>
+
+        <!--Tests-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
 
 
         <!-- Database-->
