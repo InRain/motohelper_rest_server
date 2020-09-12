@@ -34,15 +34,6 @@ public class UserRestController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> saveUser(@RequestBody User user){
-        HttpHeaders headers = new HttpHeaders();
-        if(user == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        userService.register(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> updateUser(@RequestBody User user){

@@ -1,7 +1,5 @@
 package com.motohelper.server.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -17,7 +15,7 @@ public class User extends BaseEntity {
     @Column(name = "full_name")
     private String firstName;
 
-    @Column(name = "phone",unique = true)
+    @Column(name = "phone", unique = true)
     private String phone;
 
     @Column(name = "email", unique = true)
@@ -26,7 +24,7 @@ public class User extends BaseEntity {
     @Column(name = "birthdate")
     private Date birthDate;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -118,7 +116,7 @@ public class User extends BaseEntity {
         return super.getId();
     }
 
-    public Timestamp getUpdated(){
+    public Timestamp getUpdated() {
         return super.getUpdated();
     }
 
