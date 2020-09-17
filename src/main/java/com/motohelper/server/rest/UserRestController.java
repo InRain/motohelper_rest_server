@@ -20,49 +20,62 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "{id}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDto> getUser(@PathVariable("id") Long userId){
-        if (userId == null){
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDto> getUser(@PathVariable("id") Long userId) {
+        if (userId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         User user = userService.getById(userId);
-        if (user == null){
+        if (user.getId() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        UserDto userDto =  UserDto.fromUser(user);
+        UserDto userDto = UserDto.fromUser(user);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable("username") String userName) {
+        if (userName == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        User user = userService.findByUsername(userName);
+        if (user.getId() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(UserDto.fromUser(user), HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> updateUser(@RequestBody User user){
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
         HttpHeaders headers = new HttpHeaders();
-        if(user == null){
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         userService.save(user);
-        return new ResponseEntity<>(user,headers, HttpStatus.OK);
+        return new ResponseEntity<>(user, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> deleteUser(@PathVariable("id") Long userId){
+    public ResponseEntity<User> deleteUser(@PathVariable("id") Long userId) {
         HttpHeaders headers = new HttpHeaders();
-        if (userId == null){
+        if (userId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         User user = userService.getById(userId);
-        if (user == null){
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         userService.delete(userId);
-        return new ResponseEntity<>(user,headers, HttpStatus.OK);
+        return new ResponseEntity<>(user, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<User>> getAllUsers(){
+    public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAll();
-        if(users == null){
+        if (users == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(users, HttpStatus.OK);
