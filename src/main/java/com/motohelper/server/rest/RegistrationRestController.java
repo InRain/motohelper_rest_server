@@ -28,7 +28,7 @@ public class RegistrationRestController {
         }
         try {
             userService.register(user);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity(new ResponseMessage(ResponseMessage.OK, "OK"), HttpStatus.CREATED);
         } catch (DataIntegrityViolationException dataIntegrityViolationException) {
             return new ResponseEntity(
                     new ResponseMessage(ResponseMessage.EXISTS, "User already exists"),
