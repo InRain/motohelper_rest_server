@@ -9,6 +9,7 @@ public class ResponseMessage {
 
     public static final String EXISTS = "EXISTS";
     public static final String PASSWORD_IS_NULL = "PASSWORD_IS_NULL";
+    public static final String OK = "OK";
 
     public ResponseMessage() {
     }
